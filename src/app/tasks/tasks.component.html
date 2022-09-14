@@ -1,0 +1,3 @@
+<ng-container *ngIf="(tasks$ | async)?.length">
+  <ak-task *ngFor="let task of tasks$ | async" [task]="task"></ak-task>
+</ng-container>

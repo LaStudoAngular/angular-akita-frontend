@@ -73,7 +73,7 @@
               "browserTarget": "angular-akita:build:production"
             },
             "development": {
-              "browserTarget": "angular-akita:build:development"
+              "browserTarget": "angular-akita:build:development",
             }
           },
           "defaultConfiguration": "development"
