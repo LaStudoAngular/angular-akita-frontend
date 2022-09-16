@@ -1,0 +1,17 @@
+.task-button {
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.task-title {
+  margin-bottom: 30px;
+  text-transform: capitalize;
+}
+
+.task-card:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.task-complete-button {
+  text-transform: capitalize;
+}

@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AppService } from '../services/app.service';
-import { Observable } from 'rxjs';
-import { ITask } from './task/task.interface';
+import { FormControl, FormGroup } from '@angular/forms';
+import { AppService } from '@services/app.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'ak-tasks',
   templateUrl: './tasks.component.html',
@@ -10,11 +11,27 @@ import { ITask } from './task/task.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TasksComponent implements OnInit {
-  public tasks$!: Observable<ITask[]> | undefined;
+  public taskForm!: FormGroup;
 
-  constructor(private readonly service: AppService) {}
+  constructor(private readonly appService: AppService) {}
 
   ngOnInit(): void {
-    this.tasks$ = this.service.getTasks();
+    this.taskForm = new FormGroup<any>({
+      title: new FormControl(''),
+      description: new FormControl(''),
+    });
+  }
+
+  public taskFormSubmit(): void {
+    if (this.taskForm.valid) {
+      const { title, description } = this.taskForm.value;
+
+      this.appService
+        .createTask(title, description)
+        .pipe(untilDestroyed(this))
+        .subscribe(() => {
+          this.taskForm.reset();
+        });
+    }
   }
 }

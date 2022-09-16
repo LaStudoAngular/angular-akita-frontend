@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AppService } from '@services/app.service';
+import { Observable } from 'rxjs';
+import { ITask } from '@tasks/task/task.interface';
 
 @Component({
   selector: 'ak-home',
@@ -6,7 +10,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  public tasks$!: Observable<ITask[]> | undefined;
 
-  ngOnInit(): void {}
+  constructor(
+    private readonly router: Router,
+    private readonly appService: AppService
+  ) {}
+
+  ngOnInit(): void {
+    this.tasks$ = this.appService.getAllTasks();
+  }
+
+  public addTask(): void {
+    this.router.navigateByUrl('tasks').then();
+  }
 }

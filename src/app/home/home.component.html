@@ -1,1 +1,10 @@
-<p>home works!</p>
+<div class="container">
+  <button (click)="addTask()" class="task-button" mat-raised-button color="primary">create new task</button>
+  <h1 class="task-title">list of tasks</h1>
+  <mat-card *ngFor="let task of (tasks$ | async)" class="task-card">
+    <p>{{ task.title }}</p>
+    <p>{{ task.description }}</p>
+    <p>{{ task.status }}</p>
+    <button class="task-complete-button" mat-stroked-button color="accent">mark as complete</button>
+  </mat-card>
+</div>
