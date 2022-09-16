@@ -7,7 +7,6 @@ import { HomeComponent } from '@home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TasksComponent } from '@tasks/tasks.component';
-import { TaskComponent } from '@tasks/task/task.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -16,7 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, TasksComponent, TaskComponent],
+  declarations: [AppComponent, HomeComponent, TasksComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

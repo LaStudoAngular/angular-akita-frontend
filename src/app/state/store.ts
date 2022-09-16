@@ -1,4 +1,4 @@
-import { ITask } from '@tasks/task/task.interface';
+import { ITask } from '@app/interfaces/task.interface';
 import { Store, StoreConfig } from '@datorama/akita';
 import { Injectable } from '@angular/core';
 

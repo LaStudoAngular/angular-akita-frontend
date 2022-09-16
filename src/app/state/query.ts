@@ -1,7 +1,7 @@
 import { Query } from '@datorama/akita';
 import { ITaskState, TaskStore } from '@state/store';
 import { Observable } from 'rxjs';
-import { ITask } from '@tasks/task/task.interface';
+import { ITask } from '@app/interfaces/task.interface';
 
 export class TaskQuery extends Query<ITaskState> {
   constructor(private readonly taskStore: TaskStore) {

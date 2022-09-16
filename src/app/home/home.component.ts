@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from '@services/app.service';
 import { Observable } from 'rxjs';
-import { ITask } from '@tasks/task/task.interface';
+import { ITask } from '@app/interfaces/task.interface';
 
 @Component({
   selector: 'ak-home',
@@ -23,5 +23,9 @@ export class HomeComponent implements OnInit {
 
   public addTask(): void {
     this.router.navigateByUrl('tasks').then();
+  }
+
+  public trackTasks(index: number, task: ITask): string {
+    return task.slug;
   }
 }

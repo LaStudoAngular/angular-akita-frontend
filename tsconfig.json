@@ -37,6 +37,9 @@
       ],
       "@state/*": [
         "src/app/state/*"
+      ],
+      "@environments/*": [
+        "src/environments/*"
       ]
     }
   },

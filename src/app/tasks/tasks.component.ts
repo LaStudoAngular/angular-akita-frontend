@@ -23,15 +23,13 @@ export class TasksComponent implements OnInit {
   }
 
   public taskFormSubmit(): void {
-    if (this.taskForm.valid) {
-      const { title, description } = this.taskForm.value;
+    const { title, description } = this.taskForm.value;
 
-      this.appService
-        .createTask(title, description)
-        .pipe(untilDestroyed(this))
-        .subscribe(() => {
-          this.taskForm.reset();
-        });
-    }
+    this.appService
+      .createTask(title, description)
+      .pipe(untilDestroyed(this))
+      .subscribe(() => {
+        this.taskForm.reset();
+      });
   }
 }
