@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ITask } from '@app/interfaces/task.interface';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AppService } from '@services/app.service';
+import { TaskQuery } from '@state/query';
+import { ITaskState, TaskStore } from '@state/store';
 import { Observable } from 'rxjs';
 
 @UntilDestroy()
@@ -16,7 +18,9 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private readonly router: Router,
-    private readonly appService: AppService
+    private readonly appService: AppService,
+    private readonly taskQuery: TaskQuery,
+    private readonly taskStore: TaskStore
   ) {}
 
   ngOnInit(): void {
@@ -31,7 +35,16 @@ export class HomeComponent implements OnInit {
     this.appService
       .updateTask(updateTask)
       .pipe(untilDestroyed(this))
-      .subscribe();
+      .subscribe((task: ITask) => {
+        this.taskStore.update((state: ITaskState) => {
+          return {
+            tasks: {
+              ...state.tasks,
+              task,
+            },
+          };
+        });
+      });
   }
 
   public deleteTask(slug: string): void {
@@ -48,6 +61,7 @@ export class HomeComponent implements OnInit {
   }
 
   private getTasks(): void {
-    this.tasks$ = this.appService.getAllTasks();
+    // this.tasks$ = this.appService.getAllTasks();
+    this.tasks$ = this.taskQuery.getTasks();
   }
 }

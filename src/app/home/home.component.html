@@ -1,6 +1,9 @@
 <div class="container">
   <button (click)="addTask()" class="task-button" mat-raised-button color="primary">create new task</button>
   <h1 class="task-title">list of tasks</h1>
-  <ak-task *ngFor="let task of (tasks$ | async); trackBy: trackTasks" [task]="task"
-           (updateTask)="updateTask($event)" (deleteTask)="deleteTask($event)"></ak-task>
+  <ng-container *ngIf="(tasks$ | async)?.length !== 0">
+    <ak-task *ngFor="let task of (tasks$ | async); trackBy: trackTasks" [task]="task"
+             (updateTask)="updateTask($event)" (deleteTask)="deleteTask($event)"></ak-task>
+  </ng-container>
+  <ng-container *ngIf="(tasks$ | async)?.length === 0">There are no tasks yet</ng-container>
 </div>

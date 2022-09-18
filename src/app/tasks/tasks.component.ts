@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ITask } from '@app/interfaces/task.interface';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AppService } from '@services/app.service';
+import { ITaskState, TaskStore } from '@state/store';
 
 @UntilDestroy()
 @Component({
@@ -16,7 +18,8 @@ export class TasksComponent implements OnInit {
 
   constructor(
     private readonly appService: AppService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly taskStore: TaskStore
   ) {}
 
   ngOnInit(): void {
@@ -32,9 +35,21 @@ export class TasksComponent implements OnInit {
     this.appService
       .createTask(title, description)
       .pipe(untilDestroyed(this))
-      .subscribe(() => {
+      .subscribe((task: ITask) => {
+        this.taskStore.update((state: ITaskState) => {
+          return {
+            tasks: {
+              ...state.tasks,
+              task,
+            },
+          };
+        });
         this.taskForm.reset();
-        this.router.navigateByUrl('/').then();
+        this.router.navigateByUrl('').then();
       });
+  }
+
+  public goHomeHandler(): void {
+    this.router.navigateByUrl('').then();
   }
 }
