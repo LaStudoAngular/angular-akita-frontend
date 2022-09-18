@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { ITask } from '@app/interfaces/task.interface';
-import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -41,9 +41,10 @@ export class AppService {
     return this.http.delete<ITask>(url);
   }
 
-  public updateTask(title: string, description: string): Observable<ITask> {
-    const url = `${this.baseUrl}/task/${title}`;
-    const body = { title, description };
+  public updateTask(updateTask: ITask): Observable<ITask> {
+    const { slug, ...rest } = updateTask;
+    const url = `${this.baseUrl}/task/${slug}`;
+    const body = { ...rest };
 
     return this.http.put<ITask>(url, body);
   }

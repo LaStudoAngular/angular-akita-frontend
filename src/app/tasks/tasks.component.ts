@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { AppService } from '@services/app.service';
+import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { AppService } from '@services/app.service';
 
 @UntilDestroy()
 @Component({
@@ -13,7 +14,10 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 export class TasksComponent implements OnInit {
   public taskForm!: FormGroup;
 
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly router: Router
+  ) {}
 
   ngOnInit(): void {
     this.taskForm = new FormGroup<any>({
@@ -30,6 +34,7 @@ export class TasksComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe(() => {
         this.taskForm.reset();
+        this.router.navigateByUrl('/').then();
       });
   }
 }

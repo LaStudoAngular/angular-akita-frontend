@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ITask } from '@app/interfaces/task.interface';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AppService } from '@services/app.service';
 import { Observable } from 'rxjs';
-import { ITask } from '@app/interfaces/task.interface';
 
+@UntilDestroy()
 @Component({
   selector: 'ak-home',
   templateUrl: './home.component.html',
@@ -23,6 +25,13 @@ export class HomeComponent implements OnInit {
 
   public addTask(): void {
     this.router.navigateByUrl('tasks').then();
+  }
+
+  public updateTask(updateTask: ITask): void {
+    this.appService
+      .updateTask(updateTask)
+      .pipe(untilDestroyed(this))
+      .subscribe();
   }
 
   public trackTasks(index: number, task: ITask): string {

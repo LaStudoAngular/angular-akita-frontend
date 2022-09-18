@@ -1,6 +1,6 @@
 <mat-card class="task-card">
-  <p>{{ task.title }}</p>
-  <p>{{ task.description }}</p>
-  <p>{{ task.status }}</p>
-  <button class="task-complete-button" mat-stroked-button color="accent">mark as complete</button>
+  <p>{{ task?.title }}</p>
+  <p>{{ task?.description }}</p>
+  <button (click)="completeTask()" class="task-complete-button" mat-stroked-button
+          color="accent">{{ taskStatusTitle$ | async }}</button>
 </mat-card>
