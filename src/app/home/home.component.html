@@ -2,5 +2,5 @@
   <button (click)="addTask()" class="task-button" mat-raised-button color="primary">create new task</button>
   <h1 class="task-title">list of tasks</h1>
   <ak-task *ngFor="let task of (tasks$ | async); trackBy: trackTasks" [task]="task"
-           (editTask)="updateTask($event)"></ak-task>
+           (updateTask)="updateTask($event)" (deleteTask)="deleteTask($event)"></ak-task>
 </div>

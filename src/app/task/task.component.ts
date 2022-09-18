@@ -17,7 +17,8 @@ import { Observable, of } from 'rxjs';
 })
 export class TaskComponent implements OnInit {
   @Input() task!: ITask | undefined;
-  @Output() editTask = new EventEmitter<ITask>();
+  @Output() updateTask = new EventEmitter<ITask>();
+  @Output() deleteTask = new EventEmitter<string>();
 
   public taskStatusTitle$: Observable<string> | undefined;
 
@@ -25,10 +26,14 @@ export class TaskComponent implements OnInit {
     this.setTaskStatusTitle();
   }
 
-  public completeTask(): void {
+  public completeTaskHandler(): void {
     this.task!.status = !this.task?.status;
     this.setTaskStatusTitle();
-    this.editTask.emit(this.task);
+    this.updateTask.emit(this.task);
+  }
+
+  public deleteTaskHandler(): void {
+    this.deleteTask.emit(this.task!.slug);
   }
 
   private setTaskStatusTitle(): void {

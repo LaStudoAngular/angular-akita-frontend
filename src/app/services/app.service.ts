@@ -35,8 +35,8 @@ export class AppService {
     return this.http.post<ITask>(url, body);
   }
 
-  public deleteTask(title: string): Observable<ITask> {
-    const url = `${this.baseUrl}/task/${title}`;
+  public deleteTask(slug: string): Observable<ITask> {
+    const url = `${this.baseUrl}/task/${slug}`;
 
     return this.http.delete<ITask>(url);
   }

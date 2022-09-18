@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.tasks$ = this.appService.getAllTasks();
+    this.getTasks();
   }
 
   public addTask(): void {
@@ -34,7 +34,20 @@ export class HomeComponent implements OnInit {
       .subscribe();
   }
 
+  public deleteTask(slug: string): void {
+    this.appService
+      .deleteTask(slug)
+      .pipe(untilDestroyed(this))
+      .subscribe(() => {
+        this.getTasks();
+      });
+  }
+
   public trackTasks(index: number, task: ITask): string {
     return task.slug;
+  }
+
+  private getTasks(): void {
+    this.tasks$ = this.appService.getAllTasks();
   }
 }
